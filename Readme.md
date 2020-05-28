@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Viktoria Nosick](https://up.htmlacademy.ru/javascript/20/user/469679).
-* Наставник: `Неизвестно`.
+* Наставник: `Keks`.
 
 ---
 
