@@ -2,24 +2,25 @@
 
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TIME = ['12:00', '13:00', '14:00'];
-var FEATURES= ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var PIN_WIDTH = 62;
 var PIN_HEIGHT = 84;
 
 var randomElement = function (array) {
   return array[Math.floor(Math.random * array.length)];
-}
+};
 
 var randomInteger = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 var shuffle = function (array) {
   var currentIndex = array.length;
-  var temporaryValue, randomIndex;
+  var temporaryValue;
+  var randomIndex;
 
-  while (0 !== currentIndex) {
+  while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
     temporaryValue = array[currentIndex];
@@ -61,10 +62,10 @@ var generateAds = function () {
         'x': randomInteger(50, 930),
         'y': randomInteger(130, 630),
       }
-    })
-  };
+    });
+  }
   return ads;
-}
+};
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -80,7 +81,7 @@ var renderPin = function (ad) {
   pinImg.alt = ad.offer.title;
 
   return pin;
-}
+};
 
 var mapPins = document.querySelector('.map__pins');
 var fragment = document.createDocumentFragment();
@@ -88,11 +89,11 @@ var fragment = document.createDocumentFragment();
 var renderPins = function () {
   var ads = generateAds();
 
-  for (var i = 0; i < ads.length; i++ ) {
+  for (var i = 0; i < ads.length; i++) {
     fragment.appendChild(renderPin(ads[i]));
   }
 
   mapPins.appendChild(fragment);
-}
+};
 
 renderPins();
