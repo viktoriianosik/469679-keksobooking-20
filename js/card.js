@@ -1,24 +1,13 @@
 'use strict';
 
 var cardTemplate = document.querySelector('#card').content.querySelector('article');
-var TYPES = [
-  {
-    type: 'palace',
-    rus: 'Дворец',
-  },
-  {
-    type: 'flat',
-    rus: 'Квартира',
-  },
-  {
-    type: 'bungalo',
-    rus: 'Бунгало',
-  },
-  {
-    type: 'house',
-    rus: 'Дом',
-  }
-];
+
+var TYPES = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом'
+};
 
 var getCardTemplate = function (card) {
   var newCard = cardTemplate.cloneNode(true);
@@ -33,7 +22,7 @@ var getCardTemplate = function (card) {
   newCard.querySelector('.popup__avatar').src = card.author.avatar;
   renderPhotos(newCard, card.offer.photos);
   renderFeatures(newCard, card.offer.features);
-  renderType(newCard, card.offer.type);
+  newCard.querySelector('.popup__type').textContent = TYPES[card.offer.type]
 
   return newCard;
 };
@@ -46,14 +35,6 @@ var renderFeatures = function (card, featureArray) {
       if (features[i].classList.contains('popup__feature--' + featureArray[j])) {
         features[i].style.display = 'inline-block';
       }
-    }
-  }
-};
-
-var renderType = function (card, type) {
-  for (var i = 0; i < TYPES.length; i++) {
-    if (type === TYPES[i].type) {
-      card.querySelector('.popup__type').textContent = TYPES[i].rus;
     }
   }
 };
