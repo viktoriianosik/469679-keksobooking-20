@@ -4,7 +4,7 @@ var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var PIN_WIDTH = 62;
+var PIN_WIDTH = 65;
 
 var randomElement = function (array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -68,8 +68,6 @@ var generateAds = function () {
   return ads;
 };
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var getPinTemplate = function (ad) {
@@ -95,4 +93,4 @@ var renderPins = function () {
   mapPins.appendChild(fragment);
 };
 
-renderPins();
+
