@@ -10,68 +10,59 @@ var PIN_WIDTH = 62;
 var PIN_HEIGHT_INACTIVE = 62;
 var PIN_HEIGHT_ACTIVE = 84;
 
-var setDisabledAttribute = function (item) {
-  item.setAttribute('disabled', 'disabled');
-};
-
-var disabledSelects = function () {
-  for (var i = 0; i < selects.length; i++) {
-    setDisabledAttribute(selects[i]);
+var toogleDisabledAttribute = function (item, disabled) {
+  if (disabled) {
+    item.setAttribute('disabled', 'disabled');
+  } else {
+    item.removeAttribute('disabled', 'disabled');
   }
 };
 
-var disabledFielsets = function () {
-  for (var i = 0; i < fieldsets.length; i++) {
-    setDisabledAttribute(fieldsets[i]);
+var setDisabledAttrubite = function (items) {
+  for (var i = 0; i < items.length; i++) {
+    toogleDisabledAttribute(items[i], true);
   }
 };
 
-var deleteDisabledAttribute = function (item) {
-  item.removeAttribute('disabled', 'disabled');
-};
-
-var deleteDisabledSelects = function () {
-  for (var i = 0; i < selects.length; i++) {
-    deleteDisabledAttribute(selects[i]);
+var removeDisabledAttrubite = function (items) {
+  for (var i = 0; i < items.length; i++) {
+    toogleDisabledAttribute(items[i], false);
   }
 };
 
-var deleteDisabledFielsets = function () {
-  for (var i = 0; i < fieldsets.length; i++) {
-    deleteDisabledAttribute(fieldsets[i]);
-  }
+var init = function () {
+  var coordinateX = parseInt(mainPin.style.left, 10) + PIN_WIDTH / 2;
+  var coordinateYInActive = parseInt(mainPin.style.top, 10) + PIN_HEIGHT_INACTIVE;
+  var coordinateYActive = parseInt(mainPin.style.top, 10) + PIN_HEIGHT_ACTIVE;
+  inputAddress.readOnly = true;
+  inputAddress.value = coordinateX + ', ' + coordinateYInActive;
+  setDisabledAttrubite(fieldsets);
+  setDisabledAttrubite(selects);
+
+  mainPin.addEventListener('mousedown', function (evt) {
+    // Проверка на клик только левой кнопки мыши
+    if (evt.button === 0) {
+      setActiveState(coordinateX, coordinateYActive);
+    }
+  });
+  mainPin.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      setActiveState(coordinateX, coordinateYActive);
+    }
+  });
 };
 
-disabledFielsets();
-disabledSelects();
+init();
 
-var coordinateX = parseInt(mainPin.style.left, 10) + PIN_WIDTH / 2;
-var coordinateYInActive = parseInt(mainPin.style.top, 10) + PIN_HEIGHT_INACTIVE;
-var coordinateYActive = parseInt(mainPin.style.top, 10) + PIN_HEIGHT_ACTIVE;
-inputAddress.readOnly = true;
-inputAddress.value = coordinateX + ', ' + coordinateYInActive;
-
-
-var setActiveState = function () {
+var setActiveState = function (coordinateX, coordinateYActive) {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  deleteDisabledSelects();
-  deleteDisabledFielsets();
+  removeDisabledAttrubite(fieldsets);
+  removeDisabledAttrubite(selects);
   inputAddress.value = coordinateX + ', ' + coordinateYActive;
+  window.renderPins();
+  window.renderCards();
+  window.openCardPopup();
 };
-
-
-mainPin.addEventListener('mousedown', function (evt) {
-  // Проверка на клик только левой кнопки мыши
-  if (evt.button === 0) {
-    setActiveState();
-  }
-});
-
-mainPin.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    setActiveState();
-  }
-});
 
 

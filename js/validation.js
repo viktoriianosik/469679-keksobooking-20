@@ -1,24 +1,68 @@
 'use strict';
 var adForm = document.querySelector('.ad-form');
-var roomNumber = adForm.querySelector('#room_number');
-var capacity = adForm.querySelector('#capacity');
+var roomNumberSelect = adForm.querySelector('#room_number');
+var capacitySelect = adForm.querySelector('#capacity');
 
 var checkPlacement = function () {
-  if (roomNumber.value === '100' && capacity.value !== '0') {
-    capacity.setCustomValidity('Выбранный тип жилья не для гостей!');
-  } else if (roomNumber.value < capacity.value) {
-    capacity.setCustomValidity('Колличество гостей не может быть больше ' + roomNumber.value);
-  } else if (roomNumber.value !== '100' && capacity.value === '0') {
-    capacity.setCustomValidity('Выбранный тип жилья только для гостей!');
+  if (roomNumberSelect.value === '100' && capacitySelect.value !== '0') {
+    capacitySelect.setCustomValidity('Выбранный тип жилья не для гостей!');
+  } else if (roomNumberSelect.value < capacitySelect.value) {
+    capacitySelect.setCustomValidity('Колличество гостей не может быть больше ' + roomNumberSelect.value);
+  } else if (roomNumberSelect.value !== '100' && capacitySelect.value === '0') {
+    capacitySelect.setCustomValidity('Выбранный тип жилья только для гостей!');
   } else {
-    capacity .setCustomValidity('');
+    capacitySelect.setCustomValidity('');
   }
 };
 
-roomNumber.addEventListener('change', function () {
+roomNumberSelect.addEventListener('change', function () {
   checkPlacement();
 });
 
-capacity.addEventListener('change', function () {
+capacitySelect.addEventListener('change', function () {
   checkPlacement();
 });
+
+var typeSelect = adForm.querySelector('#type');
+var priceInput = adForm.querySelector('#price');
+
+var changeMinPrice = function (type, pricce) {
+  switch (type.value) {
+    case 'bungalo':
+      pricce.min = 0;
+      pricce.placeholder = '0';
+      break;
+    case 'flat':
+      pricce.min = 1000;
+      pricce.placeholder = '1000';
+      break;
+    case 'house':
+      pricce.min = 5000;
+      pricce.placeholder = '5000';
+      break;
+    case 'palace':
+      pricce.min = 10000;
+      pricce.placeholder = '10000';
+      break;
+  }
+};
+
+typeSelect.addEventListener('change', function () {
+  changeMinPrice(typeSelect, priceInput);
+});
+
+priceInput.addEventListener('change', function () {
+  changeMinPrice(typeSelect, priceInput);
+});
+
+var timein = adForm.querySelector('#timein');
+var timeout = adForm.querySelector('#timeout');
+
+timein.addEventListener('change', function () {
+  timeout.value = timein.value;
+});
+
+timeout.addEventListener('change', function () {
+  timein.value = timeout.value;
+});
+
