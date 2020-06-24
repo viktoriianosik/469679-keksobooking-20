@@ -61,7 +61,7 @@
           'photos': createRandomArray(PHOTOS),
         },
         'location': {
-          'x': randomInteger(50, 930),
+          'x': randomInteger(50, 1100),
           'y': randomInteger(130, 630),
         }
       });

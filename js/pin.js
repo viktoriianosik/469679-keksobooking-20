@@ -6,7 +6,7 @@
     var pin = pinTemplate.cloneNode(true);
     var pinImg = pin.querySelector('img');
 
-    pin.style.left = ad.location.x - window.PIN_WIDTH / 2 + 'px';
+    pin.style.left = ad.location.x - window.start.PIN_WIDTH / 2 + 'px';
     pin.style.top = ad.location.y + 'px';
     pinImg.src = ad.author.avatar;
     pinImg.alt = ad.offer.title;
