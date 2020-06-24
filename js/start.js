@@ -6,7 +6,7 @@
   var fieldsets = document.querySelectorAll('fieldset');
   var mainPin = document.querySelector('.map__pin--main');
   var inputAddress = document.querySelector('input[name=address]');
-  window.PIN_WIDTH = 62;
+  var PIN_WIDTH = 62;
   var PIN_HEIGHT_INACTIVE = 62;
   var PIN_HEIGHT_ACTIVE = 84;
 
@@ -30,38 +30,43 @@
     }
   };
 
-  var init = function () {
-    var coordinateX = parseInt(mainPin.style.left, 10) + window.PIN_WIDTH / 2;
-    var coordinateYInActive = parseInt(mainPin.style.top, 10) + PIN_HEIGHT_INACTIVE;
-    var coordinateYActive = parseInt(mainPin.style.top, 10) + PIN_HEIGHT_ACTIVE;
-    inputAddress.readOnly = true;
-    inputAddress.value = coordinateX + ', ' + coordinateYInActive;
-    setDisabledAttrubite(fieldsets);
-    setDisabledAttrubite(selects);
-
-    mainPin.addEventListener('mousedown', function (evt) {
-      // Проверка на клик только левой кнопки мыши
-      if (evt.button === 0) {
-        setActiveState(coordinateX, coordinateYActive);
-      }
-    });
-    mainPin.addEventListener('keydown', function (evt) {
-      if (evt.key === 'Enter') {
-        setActiveState(coordinateX, coordinateYActive);
-      }
-    });
-  };
-
-  init();
-
-  var setActiveState = function (coordinateX, coordinateYActive) {
+  var setActiveState = function () {
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     removeDisabledAttrubite(fieldsets);
     removeDisabledAttrubite(selects);
-    inputAddress.value = coordinateX + ', ' + coordinateYActive;
-    window.renderPins();
-    window.renderCards();
-    window.openCardPopup();
+  };
+
+  var setAddressValue = function (coordinateX, coordinateY, activeMap) {
+    if (activeMap) {
+      inputAddress.value = (coordinateX + PIN_WIDTH / 2) + ', ' + (coordinateY + PIN_HEIGHT_ACTIVE);
+    } else {
+      inputAddress.value = (coordinateX + PIN_WIDTH / 2) + ', ' + (coordinateY + PIN_HEIGHT_INACTIVE / 2);
+    }
+  };
+
+  var init = function () {
+    inputAddress.readOnly = true;
+    setAddressValue(mainPin.offsetLeft, mainPin.offsetTop, false);
+    setDisabledAttrubite(fieldsets);
+    setDisabledAttrubite(selects);
+  };
+  init();
+
+  mainPin.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      setActiveState();
+      setAddressValue(mainPin.offsetLeft, mainPin.offsetTop, true);
+      window.renderPins();
+      window.renderCards();
+      window.openCardPopup();
+    }
+  });
+
+  window.start = {
+    setActiveState: setActiveState,
+    setAddressValue: setAddressValue,
+    PIN_WIDTH: PIN_WIDTH,
+    PIN_HEIGHT_ACTIVE: PIN_HEIGHT_ACTIVE,
   };
 })();
