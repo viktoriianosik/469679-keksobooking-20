@@ -56,12 +56,16 @@
   };
 
   var filtersContainer = document.querySelector('.map__filters-container');
-  var fragment = document.createDocumentFragment();
 
-  window.renderCards = function () {
-    for (var i = 0; i < window.ads.length; i++) {
-      fragment.appendChild(getCardTemplate(window.ads[i]));
+  var renderCards = function (ads) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < ads.length; i++) {
+      fragment.appendChild(getCardTemplate(ads[i]));
     }
     filtersContainer.before(fragment);
+  };
+
+  window.card = {
+    renderCards: renderCards,
   };
 })();

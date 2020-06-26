@@ -59,9 +59,7 @@
           window.start.setActiveState();
           window.start.setAddressValue(mainPin.offsetLeft, mainPin.offsetTop, true);
         }
-        window.renderPins();
-        window.renderCards();
-        window.openCardPopup();
+        window.backend.load(window.start.onLoad, window.backend.onError);
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
       };

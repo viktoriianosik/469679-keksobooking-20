@@ -46,7 +46,7 @@
     }
   };
 
-  window.openCardPopup = function () {
+  var openCardPopup = function () {
     var mapPins = document.querySelectorAll('.map__pin[type=button]');
     for (var i = 0; i < mapPins.length; i++) {
       mapPins[i].addEventListener('click', function (evt) {
@@ -56,5 +56,9 @@
         document.addEventListener('keydown', onPopupEscPress);
       });
     }
+  };
+
+  window.map = {
+    openCardPopup: openCardPopup,
   };
 })();

@@ -16,12 +16,16 @@
   };
 
   var mapPinsContainer = document.querySelector('.map__pins');
-  var fragment = document.createDocumentFragment();
 
-  window.renderPins = function () {
-    for (var i = 0; i < window.ads.length; i++) {
-      fragment.appendChild(getPinTemplate(window.ads[i]));
+  var renderPins = function (ads) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < ads.length; i++) {
+      fragment.appendChild(getPinTemplate(ads[i]));
     }
     mapPinsContainer.appendChild(fragment);
+  };
+
+  window.pin = {
+    renderPins: renderPins,
   };
 })();
