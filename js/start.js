@@ -53,11 +53,20 @@
   };
   init();
 
+  var onLoad = function (ads) {
+    for (var i = 0; i < ads.length; i++) {
+      ads[i].id = i;
+    }
+    window.pin.renderPins(ads);
+    window.card.renderCards(ads);
+    window.map.openCardPopup();
+  };
+
   mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       setActiveState();
       setAddressValue(mainPin.offsetLeft, mainPin.offsetTop, true);
-      window.renderPins();
+      window.backend.load(onLoad, window.backend.onError);
       window.renderCards();
       window.openCardPopup();
     }
@@ -66,6 +75,7 @@
   window.start = {
     setActiveState: setActiveState,
     setAddressValue: setAddressValue,
+    onLoad: onLoad,
     PIN_WIDTH: PIN_WIDTH,
     PIN_HEIGHT_ACTIVE: PIN_HEIGHT_ACTIVE,
   };
