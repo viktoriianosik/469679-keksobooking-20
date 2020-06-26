@@ -17,7 +17,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var load = function (onLoad, onError) {
+  var load = function (onLoad, error) {
     var URL = 'https://javascript.pages.academy/keksobooking/data';
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -26,7 +26,7 @@
       if (xhr.status === STATUS_CODE.OK) {
         onLoad(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        error('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
@@ -39,7 +39,7 @@
     xhr.send();
   };
 
-  var save = function (data, onLoad, onError) {
+  var save = function (data, onLoad, error) {
     var URL = 'https://javascript.pages.academy/code-and-magick';
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -48,7 +48,7 @@
       if (xhr.status === STATUS_CODE.OK) {
         onLoad(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        error('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
