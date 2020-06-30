@@ -72,10 +72,12 @@
     }
   });
 
+
   window.start = {
     setActiveState: setActiveState,
     setAddressValue: setAddressValue,
     onLoad: onLoad,
+    init: init,
     PIN_WIDTH: PIN_WIDTH,
     PIN_HEIGHT_ACTIVE: PIN_HEIGHT_ACTIVE,
   };
