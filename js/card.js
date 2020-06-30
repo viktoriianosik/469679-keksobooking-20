@@ -55,10 +55,17 @@
     popupPhotos.appendChild(fragment);
   };
 
-  var filtersContainer = document.querySelector('.map__filters-container');
+  var deleteAllCards = function () {
+    var mapCards = document.querySelectorAll('.map__card');
+    for (var i = 0; i < mapCards.length; i++) {
+      mapCards[i].parentNode.removeChild(mapCards[i]);
+    }
+  };
 
   var renderCards = function (ads) {
+    var filtersContainer = document.querySelector('.map__filters-container');
     var fragment = document.createDocumentFragment();
+    deleteAllCards();
     for (var i = 0; i < ads.length; i++) {
       fragment.appendChild(getCardTemplate(ads[i]));
     }
@@ -67,5 +74,6 @@
 
   window.card = {
     renderCards: renderCards,
+    deleteAllCards: deleteAllCards,
   };
 })();
