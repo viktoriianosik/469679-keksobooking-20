@@ -53,13 +53,18 @@
   };
   init();
 
-  var onLoad = function (ads) {
+  var render = function (ads) {
     for (var i = 0; i < ads.length; i++) {
       ads[i].id = i;
     }
     window.pin.renderPins(ads);
     window.card.renderCards(ads);
     window.map.openCardPopup();
+  };
+
+  var onLoad = function (ads) {
+    window.ads = ads;
+    render(ads);
   };
 
   mainPin.addEventListener('keydown', function (evt) {
@@ -78,6 +83,7 @@
     setAddressValue: setAddressValue,
     onLoad: onLoad,
     init: init,
+    render: render,
     PIN_WIDTH: PIN_WIDTH,
     PIN_HEIGHT_ACTIVE: PIN_HEIGHT_ACTIVE,
   };

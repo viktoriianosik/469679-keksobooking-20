@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   var cardTemplate = document.querySelector('#card').content.querySelector('article');
+  var CARDS_RENDER_COUNT = 5;
 
   var TYPES = {
     palace: 'Дворец',
@@ -63,10 +64,11 @@
   };
 
   var renderCards = function (ads) {
+    var takeNumber = ads.length > CARDS_RENDER_COUNT ? CARDS_RENDER_COUNT : ads.length;
     var filtersContainer = document.querySelector('.map__filters-container');
     var fragment = document.createDocumentFragment();
     deleteAllCards();
-    for (var i = 0; i < ads.length; i++) {
+    for (var i = 0; i < takeNumber; i++) {
       fragment.appendChild(getCardTemplate(ads[i]));
     }
     filtersContainer.before(fragment);
