@@ -96,6 +96,8 @@
   };
 
   mapFilters.addEventListener('change', function () {
-    updateAds();
+    window.debounce(function () {
+      updateAds();
+    });
   });
 })();
